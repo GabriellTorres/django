@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+
+    <style>
+
+        *{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        section{
+            padding: 10px;
+        }
+
+        table{
+            border: 1px black solid;
+        }
+
+        table thead{
+            border: 1px black solid;
+            background-color: rgba(0, 0, 0, 0.637);
+        }
+
+        table thead tr th{
+            color: white;
+            padding: 5px;
+        }
+
+        table tbody tr td{
+            padding: 5px;
+        }
+
+        table tbody tr:nth-child(even){
+            background-color: rgb(161, 161, 161);
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <h1>Bem-Vindo {{nome}}! Essas são suas tarefas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Descricao</th>
+                    <th>Concluido</th>
+                    <th>Data de criação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarefa in tarefas %}
+                <tr>
+                    <td>{{tarefa.id}}</td>
+                    <td>{{tarefa.nome}}</td>
+                    <td>{{tarefa.descricao}}</td>
+                    <td>{{tarefa.concluido}}</td>
+                    <td>{{tarefa.data_criacao}}</td>
+                    <td>
+                        <a class="link-excluir" aria-label="Exclulir" href="{% url 'tarefas:remover' tarefa.id %}">Exclulir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <a href="{% url 'tarefas:adicionar' %}">Adicionar</a>
+    </section>
+</body>
+</html>
