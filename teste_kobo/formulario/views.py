@@ -9,6 +9,7 @@ from django.utils.timezone import make_aware
 from django.views.decorators.csrf import csrf_exempt
 
 from formulario.models import Formulario
+from teste_kobo import settings
 
 # Create your views here.
 def index(request):
@@ -17,6 +18,20 @@ def index(request):
 @csrf_exempt
 def webhook_kobo(request):
 
+    token = settings.KOBO_WEBHOOK_TOKEN
+
+    auth = request.headers.get("Authorization")
+
+    print(token)
+    print(auth)
+
+    if auth != f"Bearer {token}":
+                 
+        return JsonResponse(
+            {"erro": "Não autorizado"},
+            status=401
+        )
+
     if request.method != "POST":
         return JsonResponse(
              {"erro": "Método não permitido"},
@@ -24,6 +39,7 @@ def webhook_kobo(request):
         )
 
     try:
+
             dados = json.loads(request.body)
 
             print(dados)

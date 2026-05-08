@@ -1,0 +1,11 @@
+db.sqlite3
+requirements.txt
+.env
+__pycache__
+migrations
+
+# virtualenv
+.venv
+venv/
+ENV/
+.vscode
